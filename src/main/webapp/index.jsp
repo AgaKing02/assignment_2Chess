@@ -4,39 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script>
-        function makeAMove() {
-            let xhttp = new XMLHttpRequest();
-            let move = document.getElementById("moveOut").value;
-            if (move === "") {
-                document.getElementById("moveOut").value = "please enter something 1";
-                return;
-            }
-            xhttp.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    var moveMent = JSON.parse(this.responseText);
-                    if (moveMent.length > 0) {
-                        document.getElementById("moveIn").value = moveMent;
-                    } else {
-                        document.getElementById("moveIn").value = "Could not receive a movement";
-                    }
-                }
-            };
-            xhttp.open("POST", "${pageContext.request.contextPath}/hello-servlet", true);
-            xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhttp.send("move=" + move);
-            console.log(xhttp.responseText)
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-
-        }
-        function getResponse(responseText){
-            alert(responseText)
-        }
-    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Choose Player</title>
 </head>
 <body>
-<input type="button" style="width: 15%;" name="Move" value="Move" onclick="makeAMove()"><br><br>
-<input type="text" placeholder="move From partner" id="moveIn" name="moveIn"><br><br>
-<input type="text" placeholder="my Move" id="moveOut" name="moveOut"><br><br>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1>Choose Player</h1>
+        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator,
+            etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p>
+            <a href="<%=request.getContextPath()%>/first" class="btn btn-light my-2">White</a>
+            <a href="<%=request.getContextPath()%>/second" class="btn btn-dark my-2">Black</a>
+        </p>
+    </div>
+</section>
 </body>
 </html>

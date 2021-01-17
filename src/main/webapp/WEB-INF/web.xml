@@ -27,6 +27,5 @@
         <filter-name>MoveFilter</filter-name>
         <url-pattern>/first</url-pattern>
         <url-pattern>/second</url-pattern>
-
     </filter-mapping>
 </web-app>
