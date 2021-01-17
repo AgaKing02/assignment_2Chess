@@ -16,6 +16,14 @@ public class FirstPlayer extends HttpServlet {
     private ChessClient chessClient = null;
     private MoveDispatcher moveDispatcher = null;
 
+    @Override
+    public void init() throws ServletException {
+        chessClient = new ChessClient();
+        chessClient.start();
+        moveDispatcher = MoveDispatcher.getInstance();
+        System.out.println("Started FirstPlayer");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("from") != null && request.getParameter("to") != null) {
             Move move = new Move(request.getParameter("from"), request.getParameter("to"));
@@ -32,12 +40,6 @@ public class FirstPlayer extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (chessClient == null) {
-            chessClient = new ChessClient();
-            chessClient.start();
-            moveDispatcher = MoveDispatcher.getInstance();
-            System.out.println("Started FirstPlayer");
-        }
         request.getRequestDispatcher("/chess.jsp").forward(request, response);
     }
 }

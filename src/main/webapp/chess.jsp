@@ -128,8 +128,7 @@
 
 </body>
 <script>
-
-
+    let lastMove;
 
     const xCoordinates = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
     const maxYCoordinate = 8
@@ -147,6 +146,7 @@
         let fromFigure;
         let toChess;
         for (let i = 0; i < classes.length; i++) {
+
             if (((maxYCoordinate - fromm[0]) * maxYCoordinate + xCoordinates.indexOf(fromm[1])) === i) {
                 fromChess = i;
                 fromFigure = classes[i].innerText
@@ -167,9 +167,10 @@
 
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                var moveMent =JSON.parse(this.responseText)
-                if (moveMent!=null) {
-                    moveTo(moveMent.from,moveMent.to)
+                var moveMent = JSON.parse(this.responseText)
+                if (moveMent != null) {
+                    moveTo(moveMent.from, moveMent.to)
+
                 } else {
                     alert("Can not read the response")
                 }
@@ -189,8 +190,9 @@
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 let moveMent = JSON.parse(this.responseText)
-                if (moveMent!==null) {
-                    moveTo(moveMent.from,moveMent.to)
+                if (moveMent !== null) {
+                    lastMove=moveMent
+                    moveTo(moveMent.from, moveMent.to)
                 } else {
                     alert("Can not read the response")
                 }
@@ -199,16 +201,20 @@
         xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/first", true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhttp.send("ready=true");
+
     }
-    class Move{
+
+    class Move {
         from;
         to;
-        constructor(fromm,to) {
-            this.from=fromm;
-            this.to=to;
+
+        constructor(fromm, to) {
+            this.from = fromm;
+            this.to = to;
 
         }
     }
+
 
 
 </script>

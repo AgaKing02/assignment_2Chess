@@ -19,14 +19,14 @@
         <servlet-name>Second</servlet-name>
         <url-pattern>/second</url-pattern>
     </servlet-mapping>
-<!--    <filter>-->
-<!--        <filter-name>MoveFilter</filter-name>-->
-<!--        <filter-class>ww.edu.assignment_2.chess.MoveFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>MoveFilter</filter-name>-->
-<!--        <url-pattern>/first</url-pattern>-->
-<!--        <url-pattern>/second</url-pattern>-->
+    <filter>
+        <filter-name>MoveFilter</filter-name>
+        <filter-class>ww.edu.assignment_2.chess.MoveFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MoveFilter</filter-name>
+        <url-pattern>/first</url-pattern>
+        <url-pattern>/second</url-pattern>
 
-<!--    </filter-mapping>-->
+    </filter-mapping>
 </web-app>
