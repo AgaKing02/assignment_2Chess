@@ -39,6 +39,7 @@ function makeAMove() {
         if (this.readyState === 4 && this.status === 200) {
             var moveMent = JSON.parse(this.responseText)
             if (moveMent != null) {
+                lastMove=moveMent
                 moveTo(moveMent.from, moveMent.to)
 
             } else {
@@ -55,14 +56,18 @@ function makeAMove() {
 
 
 function waitForMove() {
+    alert("called")
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             let moveMent = JSON.parse(this.responseText)
             if (moveMent !== null) {
-                lastMove=moveMent
-                moveTo(moveMent.from, moveMent.to)
+                if((moveMent.from!=lastMove.from && moveMent.to!=lastMove.to)||lastMove===null){
+                    // setInterval(waitForMove,3000)
+                    lastMove=moveMent
+                    moveTo(moveMent.from, moveMent.to)
+                }
             } else {
                 alert("Can not read the response")
             }
@@ -84,6 +89,4 @@ class Move {
 
     }
 }
-
-
 

@@ -51,7 +51,7 @@
     </form>
 </div>
 <br>
-<div class="actions" style="float: right" >
+<div class="actions" style="float: right">
     <button id="buttonMove" onclick="makeAMove()">Move</button>
     <br>
     <button id="buttonWait" onclick="waitForMove()">Wait</button>

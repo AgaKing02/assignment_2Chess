@@ -38,13 +38,10 @@ public class SecondPlayer extends HttpServlet {
             String json = new Gson().toJson(move1);
             response.getWriter().write(json);
         }
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/chess2.jsp").forward(request, response);
-
-
     }
 
     public MoveDispatcher getMoveDispatcher() {

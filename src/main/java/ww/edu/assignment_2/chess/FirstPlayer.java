@@ -18,6 +18,7 @@ public class FirstPlayer extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        ChessServer.startServer();
         chessClient = new ChessClient();
         chessClient.start();
         moveDispatcher = MoveDispatcher.getInstance();

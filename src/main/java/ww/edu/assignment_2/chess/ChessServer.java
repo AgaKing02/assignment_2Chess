@@ -52,7 +52,7 @@ public class ChessServer extends Thread {
         serverSocket.close();
     }
 
-    public static void main(String[] args) {
+    public static void startServer() {
         ChessServer server = new ChessServer();
         //while(true) {
         server.start();
