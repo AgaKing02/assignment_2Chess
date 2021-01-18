@@ -54,7 +54,7 @@
 <div class="actions" style="float: right">
     <button id="buttonMove" onclick="makeAMove()">Move</button>
     <br>
-    <button id="buttonWait" onclick="waitForMove()">Wait</button>
+<%--    <button id="buttonWait" onclick="waitForMove()">Wait</button>--%>
 </div>
 <br>
 

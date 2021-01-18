@@ -135,5 +135,5 @@
 
 
 </body>
-<script src="js/secondPlayer.js"></script>
+<script src="secondPlayer.js"></script>
 </html>

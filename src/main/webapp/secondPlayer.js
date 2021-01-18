@@ -1,5 +1,5 @@
 let lastMove;
-
+let count = 0;
 const xCoordinates = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 const maxYCoordinate = 8
 
@@ -39,7 +39,8 @@ function makeAMove() {
         if (this.readyState === 4 && this.status === 200) {
             var moveMent = JSON.parse(this.responseText)
             if (moveMent != null) {
-                lastMove=moveMent
+                setInterval(waitForMove, 3000)
+                lastMove = moveMent
                 moveTo(moveMent.from, moveMent.to)
 
             } else {
@@ -56,23 +57,27 @@ function makeAMove() {
 
 
 function waitForMove() {
-    alert("called")
     let xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            let moveMent = JSON.parse(this.responseText)
-            if (moveMent !== null) {
-                if((moveMent.from!=lastMove.from && moveMent.to!=lastMove.to)||lastMove===null){
-                    // setInterval(waitForMove,3000)
-                    lastMove=moveMent
-                    moveTo(moveMent.from, moveMent.to)
+    if (count===0){
+        document.getElementById("buttonWait").style.visibility="hidden";
+        count++;
+    }
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let moveMent = JSON.parse(this.responseText)
+                if (moveMent !== null) {
+                    if (typeof (lastMove) === "undefined") {
+                        lastMove = moveMent
+                        moveTo(moveMent.from, moveMent.to)
+                    } else if (moveMent.from != lastMove.from || moveMent.to != lastMove.to) {
+                        lastMove = moveMent
+                        moveTo(moveMent.from, moveMent.to)
+                    }
+                } else {
+                    alert("Can not read the response")
                 }
-            } else {
-                alert("Can not read the response")
             }
-        }
-    };
+        };
     xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/second", true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send("ready=true");
@@ -89,4 +94,6 @@ class Move {
 
     }
 }
+
+
 
