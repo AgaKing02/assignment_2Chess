@@ -37,12 +37,12 @@ public class ChessServer extends Thread {
             wait = serverSocket.accept();
         } catch (IOException e) {
             e.printStackTrace();
-//        }finally {
-//            try {
-//                closeConnections();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+        }finally {
+            try {
+                closeConnections();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

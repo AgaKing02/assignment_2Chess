@@ -13,8 +13,7 @@
 <section class="jumbotron text-center">
     <div class="container">
         <h1>Choose Player</h1>
-        <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator,
-            etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
+        <p class="lead text-muted">When the initialization the clients will be added</p>
         <p>
             <a href="<%=request.getContextPath()%>/first" class="btn btn-light my-2">White</a>
             <a href="<%=request.getContextPath()%>/second" class="btn btn-dark my-2">Black</a>
