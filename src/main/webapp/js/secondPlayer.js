@@ -1,4 +1,5 @@
 let lastMove;
+let message;
 let count = 0;
 const xCoordinates = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 const maxYCoordinate = 8
@@ -58,30 +59,60 @@ function makeAMove() {
 
 function waitForMove() {
     let xhttp = new XMLHttpRequest();
-    if (count===0){
-        document.getElementById("buttonWait").style.visibility="hidden";
+    if (count === 0) {
+        document.getElementById("buttonWait").style.visibility = "hidden";
         count++;
     }
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let moveMent = JSON.parse(this.responseText)
-                if (moveMent !== null) {
-                    if (typeof (lastMove) === "undefined") {
-                        lastMove = moveMent
-                        moveTo(moveMent.from, moveMent.to)
-                    } else if (moveMent.from != lastMove.from || moveMent.to != lastMove.to) {
-                        lastMove = moveMent
-                        moveTo(moveMent.from, moveMent.to)
-                    }
-                } else {
-                    alert("Can not read the response")
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            let moveMent = JSON.parse(this.responseText)
+            if (moveMent !== null) {
+                if (typeof (lastMove) === "undefined") {
+                    lastMove = moveMent
+                    moveTo(moveMent.from, moveMent.to)
+                } else if (moveMent.from != lastMove.from || moveMent.to != lastMove.to) {
+                    lastMove = moveMent
+                    moveTo(moveMent.from, moveMent.to)
                 }
+            } else {
+                alert("Can not read the response")
             }
-        };
+        }
+    };
     xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/second", true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send("ready=true");
 
+}
+
+function testDatagramSocket() {
+alert("called")
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            let moveMent = this.responseText
+            if (moveMent !== null) {
+                if (message === null) {
+                    setMessage(moveMent)
+                    message = moveMent
+                } else if (message !== moveMent) {
+                    setMessage(moveMent)
+                    message = moveMent
+                }
+                setInterval(testDatagramSocket,3000)
+            } else {
+                alert("Can not read the response")
+            }
+        }
+    };
+    xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/second", true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    alert(document.getElementById("msg").value)
+
+}
+function setMessage(message){
+    document.getElementById("messages").append(message)
 }
 
 class Move {

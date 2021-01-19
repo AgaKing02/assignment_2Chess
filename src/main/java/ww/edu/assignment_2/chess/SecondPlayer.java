@@ -1,6 +1,7 @@
 package ww.edu.assignment_2.chess;
 
 import com.google.gson.Gson;
+import ww.edu.assignment_2.models.MessageDispatcher;
 import ww.edu.assignment_2.models.Move;
 import ww.edu.assignment_2.models.MoveDispatcher;
 
@@ -15,12 +16,15 @@ import java.io.IOException;
 public class SecondPlayer extends HttpServlet {
     private ChessClient chessClient = null;
     private MoveDispatcher moveDispatcher = null;
+    private MessageDispatcher messageDispatcher=null;
+
 
     @Override
     public void init() throws ServletException {
         chessClient = new ChessClient();
         chessClient.start();
         moveDispatcher = MoveDispatcher.getInstance();
+        messageDispatcher=MessageDispatcher.getInstance();
         System.out.println("Started SecondPlayer");
 
     }
@@ -37,6 +41,11 @@ public class SecondPlayer extends HttpServlet {
             Move move1 = moveDispatcher.getMoveAndReadyToMove();
             String json = new Gson().toJson(move1);
             response.getWriter().write(json);
+        }else if(request.getParameter("message")!=null){
+            String message=request.getParameter("message");
+            String serverResponse=messageDispatcher.sendAndGetMessage(message);
+            response.getWriter().write(serverResponse);
+
         }
     }
 

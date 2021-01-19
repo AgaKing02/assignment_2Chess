@@ -11,9 +11,9 @@ public class ChessConfiguration implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ServletContext context = sce.getServletContext();
-        FilterRegistration.Dynamic registration = context.addFilter(MoveFilter.class.getSimpleName(), new MoveFilter());
-        registration.setAsyncSupported(true);
-        registration.addMappingForUrlPatterns(null, false, "/second", "/first");
+//        ServletContext context = sce.getServletContext();
+//        FilterRegistration.Dynamic registration = context.addFilter(MoveFilter.class.getSimpleName(), new MoveFilter());
+//        registration.setAsyncSupported(true);
+//        registration.addMappingForUrlPatterns(null, false, "/second", "/first");
     }
 }

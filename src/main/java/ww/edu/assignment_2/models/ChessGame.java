@@ -19,7 +19,6 @@ public class ChessGame implements Chess {
 
     @Override
     public synchronized Move getMove() throws InterruptedException {
-        System.out.println(move);
 //        while (!occupied) {
 //            System.out.println("Consumer tries to read.");
 //            wait();

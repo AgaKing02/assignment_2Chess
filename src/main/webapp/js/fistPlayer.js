@@ -1,4 +1,5 @@
 let lastMove;
+let message;
 
 const xCoordinates = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 const maxYCoordinate = 8
@@ -77,6 +78,44 @@ function waitForMove() {
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send("ready=true");
 
+}
+function testDatagramSocket() {
+
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            let moveMent = cleanString(this.responseText)
+            if (moveMent !== null) {
+               if(message===null){
+                   setMessage(moveMent)
+                   message=moveMent
+               }else if(message!==moveMent){
+                   setMessage(moveMent)
+                   message=moveMent
+               }
+               setInterval(testDatagramSocket,3000)
+            } else {
+                alert("Can not read the response")
+            }
+        }
+    };
+    xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/first", true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send("message="+document.getElementById("msg").value);
+
+}
+function setMessage(message){
+    document.getElementById("messages").append(message)
+}
+function cleanString(input) {
+    var output = "";
+    for (var i=0; i<input.length; i++) {
+        if (input.charCodeAt(i) <= 127) {
+            output += input.charAt(i);
+        }
+    }
+    return output;
 }
 
 class Move {
