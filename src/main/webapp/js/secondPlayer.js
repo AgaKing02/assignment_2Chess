@@ -86,21 +86,22 @@ function waitForMove() {
 }
 
 function testDatagramSocket() {
-alert("called")
+    let input = document.getElementById("msg").value;
     let xhttp = new XMLHttpRequest();
+    if(input!=message){
+        setMessage(input)
+        message=input
+        input=""
+    }
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            let moveMent = this.responseText
+            let moveMent = this.responseText.replace(/[^a-zA-Z]+/g, '');
             if (moveMent !== null) {
-                if (message === null) {
-                    setMessage(moveMent)
-                    message = moveMent
-                } else if (message !== moveMent) {
+                if (message !== moveMent) {
                     setMessage(moveMent)
                     message = moveMent
                 }
-                setInterval(testDatagramSocket,3000)
             } else {
                 alert("Can not read the response")
             }
@@ -108,12 +109,13 @@ alert("called")
     };
     xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/second", true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    alert(document.getElementById("msg").value)
+    xhttp.send("message=" + input);
 
 }
-function setMessage(message){
-    document.getElementById("messages").append(message)
-}
+
+function setMessage(message) {
+    let p = document.createElement("p");
+    document.getElementById("messages").append(message,p)}
 
 class Move {
     from;

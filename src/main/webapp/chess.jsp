@@ -109,8 +109,11 @@
         /* Add some hover effects to buttons */
         .form-container .btn:hover, .open-button:hover {
             opacity: 1;
+        }
 
-    </style>
+        #messages{
+            border: 1px solid silver;
+        }    </style>
 </head>
 <body>
 <div class="form">

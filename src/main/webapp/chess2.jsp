@@ -108,7 +108,10 @@
 
         /* Add some hover effects to buttons */
         .form-container .btn:hover, .open-button:hover {
-            opacity: 1;
+            opacity: 1;}
+        #messages{
+            border: 1px solid silver;
+        }
 
     </style>
 </head>
@@ -131,7 +134,6 @@
 <br>
 <div class="chat-popup" id="myForm" style="float: right">
     <div id="messages">
-
     </div>
     <form action="" class="form-container">
         <h1>Chat</h1>

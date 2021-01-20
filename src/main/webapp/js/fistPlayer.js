@@ -40,8 +40,8 @@ function makeAMove() {
         if (this.readyState === 4 && this.status === 200) {
             var moveMent = JSON.parse(this.responseText)
             if (moveMent != null) {
-                lastMove=moveMent
-                setInterval(waitForMove,3000)
+                lastMove = moveMent
+                setInterval(waitForMove, 3000)
                 moveTo(moveMent.from, moveMent.to)
 
             } else {
@@ -65,8 +65,8 @@ function waitForMove() {
         if (this.readyState === 4 && this.status === 200) {
             let moveMent = JSON.parse(this.responseText)
             if (moveMent !== null) {
-                if(moveMent.from!=lastMove.from||moveMent.to!=lastMove.to){
-                    lastMove=moveMent
+                if (moveMent.from != lastMove.from || moveMent.to != lastMove.to) {
+                    lastMove = moveMent
                     moveTo(moveMent.from, moveMent.to)
                 }
             } else {
@@ -79,22 +79,25 @@ function waitForMove() {
     xhttp.send("ready=true");
 
 }
+
 function testDatagramSocket() {
+    let input = document.getElementById("msg").value;
+    if(input!=message){
+        setMessage(input)
+        message=input;
+        input="";
+    }
 
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            let moveMent = cleanString(this.responseText)
+            let moveMent = this.responseText.replace(/[^a-zA-Z]+/g, '');
             if (moveMent !== null) {
-               if(message===null){
-                   setMessage(moveMent)
-                   message=moveMent
-               }else if(message!==moveMent){
-                   setMessage(moveMent)
-                   message=moveMent
-               }
-               setInterval(testDatagramSocket,3000)
+                if (moveMent !==message ) {
+                    setMessage(moveMent)
+                    message = moveMent
+                }
             } else {
                 alert("Can not read the response")
             }
@@ -102,21 +105,15 @@ function testDatagramSocket() {
     };
     xhttp.open("POST", "http://localhost:8080/assignment_2_war_exploded/first", true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhttp.send("message="+document.getElementById("msg").value);
+    xhttp.send("message=" + message);
 
 }
-function setMessage(message){
-    document.getElementById("messages").append(message)
+
+function setMessage(message) {
+    let p = document.createElement("p");
+    document.getElementById("messages").append(message,p)
 }
-function cleanString(input) {
-    var output = "";
-    for (var i=0; i<input.length; i++) {
-        if (input.charCodeAt(i) <= 127) {
-            output += input.charAt(i);
-        }
-    }
-    return output;
-}
+
 
 class Move {
     from;
